@@ -1,4 +1,10 @@
-# How to run this project
+## Table of Contents  
+[How to run this project](#run)
+[Developing in Eclipse](#dev)
+[How to create a brand new Maven/Eclipse project for the Jersey Framework](#new)
+
+<a name="run"/>
+### How to run this project
  - To run it on your local machine:
    - Clone it locally
      - mkdir ~/dev
@@ -40,7 +46,8 @@
  3. Use the following to ping the server for test:
    - http://localhost:5000/amqp/example
 
-# Developing in Eclipse
+<a name="dev"/>
+### Developing in Eclipse
  1. Clone it locally
    - mkdir ~/dev
    - cd ~/dev
@@ -48,7 +55,8 @@
  2. Import project into Eclipse as an already existing maven project
  3. You can enable direct Git access from within Eclipse if you follow these [instructions](http://stackoverflow.com/questions/7194877/how-make-eclipse-egit-recognize-existing-repository-information-after-update).
 
-# How to create a brand new Maven/Eclipse project for the Jersey Framework
+<a name="new"/>
+### How to create a brand new Maven/Eclipse project for the Jersey Framework
  1. Start Eclipse
  2. Right-Click in the Navigator pane
  3. New > Project > Maven Project
