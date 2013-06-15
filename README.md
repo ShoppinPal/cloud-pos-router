@@ -1,10 +1,9 @@
 # How to run this project
- 1. To run it online via a PaaS provider such as Heroku:
- 2. To run it on your local machine:
+ - To run it on your local machine:
    - Clone it locally
      - mkdir ~/dev
      - cd ~/dev
-     - git clone <url>
+     - git clone https://github.com/ShoppinPal/cloud-pos-router.git
    - Make sure that you have the [foreman](https://github.com/ddollar/foreman) gem installed:
      - It requires RubyGems version >= 1.3.6, you can update your version of rubygems via:
          - sudo gem update --system
@@ -37,19 +36,17 @@
      - then to launch the server, simply run:
          - cut & paste onto cmd line terminal
 
-                    foreman start
- 3. Added support within the products call for filters.
-   - Use the following URL (use a URL encoding tool for the filter text):
-     - http://localhost:8080/cloud-router/api/products?filter=code%20CONTAINS%5Bcd%5D%20%22BACKPACK%22%20OR%20description%20CONTAINS%5Bcd%5D%20%22BACKPACK%22%20
-
- 4. New utility method for getting a product via the UPC filter
-   - http://localhost:8080/cloud-router/api/products/filterby/upc/0000000001
-
- 5. Get product details by id
-   - http://localhost:8080/cloud-router/api/products/2/
+                    mvn clean install && foreman start
+ 3. Use the following to ping the server for test:
+   - http://localhost:5000/amqp/example
 
 # Developing in Eclipse
-1. You can enable direct Git access from within Eclipse if you follow these [instructions](http://stackoverflow.com/questions/7194877/how-make-eclipse-egit-recognize-existing-repository-information-after-update).
+ 1. Clone it locally
+   - mkdir ~/dev
+   - cd ~/dev
+   - git clone https://github.com/ShoppinPal/cloud-pos-router.git
+ 2. Import project into Eclipse as an already existing maven project
+ 3. You can enable direct Git access from within Eclipse if you follow these [instructions](http://stackoverflow.com/questions/7194877/how-make-eclipse-egit-recognize-existing-repository-information-after-update).
 
 # How to create a brand new Maven/Eclipse project for the Jersey Framework
  1. Start Eclipse
