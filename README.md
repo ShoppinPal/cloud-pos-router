@@ -44,6 +44,8 @@
                     mvn clean install && foreman start
  3. Use the following to ping the server for test:
    - http://localhost:5000/amqp/example
+   - In your RabbitMQ admin concole you should see a similar message:
+     ![alt text](https://raw.github.com/ShoppinPal/cloud-pos-router/master/sample.png "RabbitMQ Sample Message Snapshot")
 
 ### Developing in Eclipse
  1. Clone it locally
