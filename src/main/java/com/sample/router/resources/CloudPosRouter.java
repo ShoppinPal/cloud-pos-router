@@ -39,6 +39,7 @@ import org.springframework.stereotype.Component;
 
 import com.sample.amqp.CloudRouterGateway;
 import com.sample.amqp.RequestDelegate;
+import com.sample.amqp.ResponseDelegate;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 /**
@@ -67,12 +68,10 @@ public class CloudPosRouter {
 	public String delegateRequestExample(@Context UriInfo allUri)
 	{
 		RequestDelegate requestDelegate = new RequestDelegate(
-				examplePath,
-				exampleMethod,
 				(MultivaluedMapImpl) allUri.getQueryParameters(),
-				null,
-				null);
-		Object response = cloudRouterGateway.send(requestDelegate);
-		return response.toString();
+				examplePath,
+				exampleMethod);
+		ResponseDelegate response = cloudRouterGateway.send(requestDelegate);
+		return response.getResponsePayload();
 	}
 }

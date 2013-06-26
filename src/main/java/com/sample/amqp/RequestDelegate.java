@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.sample.amqp;
 
 import java.io.Serializable;
@@ -25,26 +24,55 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  */
 public class RequestDelegate implements Serializable {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 4L;
 
 	private String requestPath;
 	private String requestMethod;
-	private MultivaluedMapImpl requestQueryParamsMultivaluedMap;
+	private MultivaluedMapImpl requestQueryParams;
+	private MultivaluedMapImpl requestHeaders;
 	private String requestPayload;
 	private String requestMimeType;
+	private boolean base64Encoded;
 
 	public RequestDelegate() {
     }
 
-	public RequestDelegate(String requestPath, String requestMethod,
-			MultivaluedMapImpl requestQueryParamsMultivaluedMap,
-			String requestPayload, String requestMimeType) {
+	public RequestDelegate(
+			MultivaluedMapImpl requestHeaders,
+			String requestPath,
+			String requestMethod)
+	{
+		this(requestHeaders,requestPath,requestMethod,null,null,null,false);
+	}
+
+	public RequestDelegate(
+			MultivaluedMapImpl requestHeaders,
+			String requestPath,
+			String requestMethod,
+			MultivaluedMapImpl requestQueryParams,
+			String requestPayload,
+			String requestMimeType)
+	{
+		this(requestHeaders,requestPath,requestMethod,requestQueryParams,requestPayload,requestMimeType,false);
+	}
+
+	public RequestDelegate(
+			MultivaluedMapImpl requestHeaders,
+			String requestPath,
+			String requestMethod,
+			MultivaluedMapImpl requestQueryParams,
+			String requestPayload,
+			String requestMimeType,
+			boolean base64Encoded)
+	{
 		super();
 		this.requestPath = requestPath;
 		this.requestMethod = requestMethod;
-		this.requestQueryParamsMultivaluedMap = requestQueryParamsMultivaluedMap;
+		this.requestQueryParams = requestQueryParams;
+		this.requestHeaders = requestHeaders;
 		this.requestPayload = requestPayload;
 		this.requestMimeType = requestMimeType;
+		this.base64Encoded = base64Encoded;
 	}
 
 	public String getRequestPath() {
@@ -63,16 +91,26 @@ public class RequestDelegate implements Serializable {
 		this.requestMethod = requestMethod;
 	}
 
-	public MultivaluedMapImpl getRequestQueryParamsMultivaluedMap() {
-		if (requestQueryParamsMultivaluedMap==null) {
-			requestQueryParamsMultivaluedMap =
-					new MultivaluedMapImpl();
+	public MultivaluedMapImpl getRequestQueryParams() {
+		if (requestQueryParams == null) {
+			requestQueryParams = new MultivaluedMapImpl();
 		}
-		return requestQueryParamsMultivaluedMap;
+		return requestQueryParams;
 	}
-	public void setRequestQueryParamsMultivaluedMap(
-			MultivaluedMapImpl requestQueryParamsMultivaluedMap) {
-		this.requestQueryParamsMultivaluedMap = requestQueryParamsMultivaluedMap;
+
+	public void setRequestQueryParams(MultivaluedMapImpl requestQueryParams) {
+		this.requestQueryParams = requestQueryParams;
+	}
+
+	public MultivaluedMapImpl getRequestHeaders() {
+		if (requestHeaders == null) {
+			requestHeaders = new MultivaluedMapImpl();
+		}
+		return requestHeaders;
+	}
+
+	public void setRequestHeaders(MultivaluedMapImpl requestHeaders) {
+		this.requestHeaders = requestHeaders;
 	}
 
 	public String getRequestPayload() {
@@ -91,12 +129,24 @@ public class RequestDelegate implements Serializable {
 		this.requestMimeType = requestMimeType;
 	}
 
+	public boolean isBase64Encoded() {
+		return base64Encoded;
+	}
+
+	public void setBase64Encoded(boolean base64Encoded) {
+		this.base64Encoded = base64Encoded;
+	}
+
 	@Override
 	public String toString() {
-		return "RequestDelegate [requestPath=" + requestPath
-				+ ",\n\n requestMethod=" + requestMethod
-				+ ",\n\n requestQueryParamsMultivaluedMap=" + requestQueryParamsMultivaluedMap
-				+ ",\n\n requestPayload=" + requestPayload
-				+ ",\n\n requestMimeType=" + requestMimeType + "]";
+		return "RequestDelegate [" + "\n\t"
+				+ "requestPath=" + requestPath + "\n\t"
+				+ "requestMethod=" + requestMethod + "\n\t"
+				+ "requestQueryParams=" + requestQueryParams + "\n\t"
+				+ "requestHeaders=" + requestHeaders + "\n\t"
+				+ "requestPayload=" + requestPayload + "\n\t"
+				+ "requestMimeType=" + requestMimeType + "\n\t"
+				+ "base64Encoded=" + base64Encoded + "\n"
+				+ "]";
 	}
 }

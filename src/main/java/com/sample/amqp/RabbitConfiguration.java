@@ -22,7 +22,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.springframework.amqp.core.AmqpAdmin;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -31,7 +30,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.support.converter.JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.amqp.support.converter.SimpleMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,7 +74,7 @@ public class RabbitConfiguration {
     @Bean(name="rabbitTemplate")
     public RabbitTemplate rabbitTemplate() {
     	RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
-    	rabbitTemplate.setMessageConverter(asymmetricMessageConverter());
+    	rabbitTemplate.setMessageConverter(jsonMessageConverter());
     	rabbitTemplate.setReplyQueue(responseQueue());
     	rabbitTemplate.setReplyTimeout(60000);
     	return rabbitTemplate;
@@ -89,11 +87,8 @@ public class RabbitConfiguration {
      * b) Jackson2JsonMessageConverter which uses the com.fasterxml.jackson 2.x library.
      */
     @Bean
-    public MessageConverter asymmetricMessageConverter() {
-    	return new AsymmetricMessageConverter(
-    			new SimpleMessageConverter(),
-    			new JsonMessageConverter(),
-    			MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
+    public MessageConverter jsonMessageConverter() {
+    	return new JsonMessageConverter();
     }
 
     /**

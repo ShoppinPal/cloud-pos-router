@@ -28,8 +28,8 @@ public class CloudRouterGateway extends RabbitGatewaySupport {
 
 	@Autowired @Qualifier("requestQueue") private Queue requestQueue;
 
-	public Object send(RequestDelegate requestDelegate) {
-		return getRabbitTemplate().convertSendAndReceive(
+	public ResponseDelegate send(RequestDelegate requestDelegate) {
+		return (ResponseDelegate) getRabbitTemplate().convertSendAndReceive(
 				requestQueue.getName(), // for default exchange, the queue name is same as routingKey
 				requestDelegate);
 	}
