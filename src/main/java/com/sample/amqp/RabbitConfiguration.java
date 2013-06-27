@@ -21,6 +21,8 @@ import static java.lang.System.getenv;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -88,7 +90,17 @@ public class RabbitConfiguration {
      */
     @Bean
     public MessageConverter jsonMessageConverter() {
-    	return new JsonMessageConverter();
+    	JsonMessageConverter jsonMessageConverter = new JsonMessageConverter();
+
+    	ObjectMapper jsonObjectMapper = new ObjectMapper();
+    	// following matched the configuration inside the source code for JsonMessageConverter
+		jsonObjectMapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		// following is being added to allow for interoperability with any nodejs implementations
+		// that we may talk to through RabbitMQ
+		jsonObjectMapper.configure(DeserializationConfig.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		jsonMessageConverter.setJsonObjectMapper(jsonObjectMapper);
+
+		return jsonMessageConverter;
     }
 
     /**
