@@ -3,6 +3,8 @@
  - [Developing in Eclipse](#developing-in-eclipse)
  - [How to create a brand new Maven/Eclipse project for the Jersey Framework](#how-to-create-a-brand-new-maveneclipse-project-for-the-jersey-framework)
 
+![alt text](https://raw.github.com/ShoppinPal/cloud-pos-router/master/architecture.png "Architecture")
+
 ### How to run this project
  - To run it on your local machine:
    - Clone it locally
